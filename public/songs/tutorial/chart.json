@@ -1,0 +1,93 @@
+{
+  "title": "Tutorial Track",
+  "bpm": 120,
+  "offsetMs": 0,
+  "keys": 4,
+  "notes": [
+    {
+      "t": 1000,
+      "lane": 0,
+      "type": "tap"
+    },
+    {
+      "t": 1500,
+      "lane": 1,
+      "type": "tap"
+    },
+    {
+      "t": 2000,
+      "lane": 2,
+      "type": "tap"
+    },
+    {
+      "t": 2500,
+      "lane": 3,
+      "type": "tap"
+    },
+    {
+      "t": 3000,
+      "lane": 0,
+      "type": "tap"
+    },
+    {
+      "t": 3500,
+      "lane": 1,
+      "type": "tap"
+    },
+    {
+      "t": 4000,
+      "lane": 2,
+      "type": "tap"
+    },
+    {
+      "t": 4500,
+      "lane": 3,
+      "type": "tap"
+    },
+    {
+      "t": 5000,
+      "lane": 0,
+      "type": "tap"
+    },
+    {
+      "t": 5500,
+      "lane": 1,
+      "type": "tap"
+    },
+    {
+      "t": 6000,
+      "lane": 2,
+      "type": "tap"
+    },
+    {
+      "t": 6500,
+      "lane": 3,
+      "type": "tap"
+    },
+    {
+      "t": 7000,
+      "lane": 0,
+      "type": "tap"
+    },
+    {
+      "t": 7500,
+      "lane": 1,
+      "type": "tap"
+    },
+    {
+      "t": 8000,
+      "lane": 2,
+      "type": "tap"
+    },
+    {
+      "t": 8500,
+      "lane": 3,
+      "type": "tap"
+    },
+    {
+      "t": 9000,
+      "lane": 0,
+      "type": "tap"
+    }
+  ]
+}

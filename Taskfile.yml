@@ -1,0 +1,81 @@
+# Taskfile.yml
+version: '3'
+
+# .env / .env.local を自動読込（NEXT_PUBLIC_* などもOK）
+dotenv: ['.env', '.env.local']
+
+vars:
+  PNPM: pnpm
+  # Nextの匿名テレメトリを抑制（CIや計測のブレを避ける）
+  NEXT_TELEMETRY_DISABLED: '1'
+
+tasks:
+  # デフォルトはヘルプを表示
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list-all
+
+  setup:
+    desc: Enable Corepack & activate pnpm 9.7.0
+    cmds:
+      - corepack enable
+      - corepack prepare pnpm@9.7.0 --activate
+      - node -v
+      - pnpm -v
+
+  install:
+    desc: Install deps with frozen lockfile (reproducible)
+    deps: [setup]
+    cmds:
+      - '{{.PNPM}} install --frozen-lockfile'
+
+  dev:
+    desc: Start Next.js dev server
+    env:
+      NEXT_TELEMETRY_DISABLED: '{{.NEXT_TELEMETRY_DISABLED}}'
+    cmds:
+      - '{{.PNPM}} dev'
+
+  build:
+    desc: Build Next.js app
+    env:
+      NEXT_TELEMETRY_DISABLED: '{{.NEXT_TELEMETRY_DISABLED}}'
+    cmds:
+      - '{{.PNPM}} build'
+
+  start:
+    desc: Start Next.js production server (after build)
+    deps: [build]
+    env:
+      NEXT_TELEMETRY_DISABLED: '{{.NEXT_TELEMETRY_DISABLED}}'
+    cmds:
+      - '{{.PNPM}} start'
+
+  typecheck:
+    desc: Run TypeScript type checking
+    cmds:
+      - '{{.PNPM}} typecheck'
+
+  lock:check:
+    desc: Verify lockfile usage on CI
+    cmds:
+      - '{{.PNPM}} install --frozen-lockfile'
+
+  clean:
+    desc: Remove build artifacts & modules
+    cmds:
+      - rm -rf .next node_modules
+
+  # おまけ：新規曲の雛形を作る（例: task song:new NAME=mySong）
+  song:new:
+    desc: Scaffold a new song folder under public/songs/
+    cmds:
+      - 'test -n "{{.NAME}}" || (echo "NAME is required: task song:new NAME=mySong" && exit 1)'
+      # - test -n "{{.NAME}}" || (echo "NAME is required: task song:new NAME=mySong" && exit 1)
+      - mkdir -p public/songs/{{.NAME}}
+      - cp -n public/songs/tutorial/chart.json public/songs/{{.NAME}}/chart.json || true
+      - cp -n public/songs/tutorial/audio.wav public/songs/{{.NAME}}/audio.wav || true
+      - 'echo "{ \"id\":\"{{.NAME}}\",\"title\":\"{{.NAME}}\",\"artist\":\"Unknown\",\"difficulty\":\"EASY\" }" > public/songs/{{.NAME}}/meta.json'
+    vars:
+      NAME: ''  # 引数で渡す

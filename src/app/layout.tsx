@@ -4,7 +4,7 @@ export const metadata = {
   description: "4 lanes, keyboard, single difficulty",
 };
 
-import "./../styles/globals.css";
+import "../../styles/globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

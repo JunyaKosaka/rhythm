@@ -89,7 +89,7 @@ export default function GameCanvas({ chart, onFinish }:{ chart: Chart, onFinish:
 
       async function loadAudio(){
         try {
-          const res = await fetch(`/songs/tutorial/audio.wav`);
+          const res = await fetch(`/songs/tutorial/audio.mp3`);
           const arr = await res.arrayBuffer();
           buffer = await ctx.decodeAudioData(arr);
         } catch (e) {

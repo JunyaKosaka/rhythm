@@ -17,10 +17,8 @@ tasks:
       - task --list-all
 
   setup:
-    desc: Enable Corepack & activate pnpm 9.7.0
+    desc: Use Volta-pinned toolchain
     cmds:
-      - corepack enable
-      - corepack prepare pnpm@9.7.0 --activate
       - node -v
       - pnpm -v
 
@@ -28,7 +26,7 @@ tasks:
     desc: Install deps with frozen lockfile (reproducible)
     deps: [setup]
     cmds:
-      - '{{.PNPM}} install --frozen-lockfile'
+      - 'pnpm install --frozen-lockfile'
 
   dev:
     desc: Start Next.js dev server

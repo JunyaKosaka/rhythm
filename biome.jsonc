@@ -1,35 +1,25 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 
-  // import の自動整理
-  "organizeImports": { "enabled": true },
-
-  // フォーマッタ
   "formatter": {
     "enabled": true,
-    "indentWidth": 2,
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "indentWidth": 2
   },
 
-  // Lint
   "linter": {
     "enabled": true,
     "rules": {
-      "all": true,
-
-      // プロジェクト方針に合わせて抑制
       "style": {
-        "useBlockStatements": "off",      // if (...) return; を許可
-        "noDefaultExport": "off",         // Next の page/layout で default export を許可
-        "noNamespaceImport": "off",       // import * as を許可
-        "useFilenamingConvention": "off", // ファイル名のスタイル拘束なし
-        "useImportType": "off",           // import type 省略を許可
-        "useNamingConvention": "off"      // 命名規則を厳格にしない
+        "useBlockStatements": "off",
+        "noDefaultExport": "off",
+        "useFilenamingConvention": "off",
+        "useImportType": "off",
+        "useNamingConvention": "off"
       },
       "suspicious": {
         "noReactSpecificProps": "off",
-        "useAwait": "off",                // await なしの async を許可（ゲームループなど）
-        "noConsoleLog": "off",
+        "useAwait": "off",
         "noConsole": "off"
       },
       "complexity": {
@@ -38,7 +28,6 @@
         "noExcessiveCognitiveComplexity": "off"
       },
       "correctness": {
-        // NOTE: これは「ESM import に拡張子を付けるか」のルールです（未使用 import ではありません）
         "useImportExtensions": "off"
       },
       "performance": {
@@ -49,32 +38,16 @@
     }
   },
 
-  // 対象外
   "files": {
-    "ignore": [
+    "includes": ["**/*.{js,ts,jsx,tsx}"],
+    "ignoreUnknown": true,
+    "experimentalScannerIgnores": [
       "node_modules",
       ".next",
-      ".vercel",
-      ".turbo",
       "dist",
-      "coverage",
-      "*.json",                       // 大きめのJSON（譜面）をlint対象外に
-      "public/**/*.mp3",
-      "public/**/*.wav",
-      "public/songs/**/audio.*",
-      "public/audio-processor.js"
+      "build",
+      "public/audio-processor.js",
+      "*.json"
     ]
-  },
-
-  // 必要に応じて型付きファイルだけ個別制御したい時はここで
-  "overrides": [
-    {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "linter": {
-        "rules": {
-          // TypeScript固有の追加ルールを入れるならここに
-        }
-      }
-    }
-  ]
+  }
 }
